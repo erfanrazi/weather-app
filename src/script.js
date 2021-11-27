@@ -18,8 +18,8 @@ function displayForecast(response) {
   let forecastElement =document.querySelector("#forecast");
   
   let forecastHTML = `<div class="row">`;
-  let days = ["Thur", "Fri", "Sat", "Sun"];
-  days.forEach(function(day) {
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function(day)) {
  forecastHTML = forecastHTML + `
   
     <div class="col-2">
