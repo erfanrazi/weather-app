@@ -47,15 +47,35 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-function search(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#search-text-input");
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `${searchInput.value}`;
-  console.log(searchInput.value);
+function displayWeatherCondition(response) {
+  console.log(response.data);
+  document.querySelector("#current-city").innerHTML = response.data.name;
+  document.querySelector("#temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].main;
+
+  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
 }
-let form = document.querySelector("form");
-form.addEventListener("submit", searchSubmit);
+
+function searchCity(city) {
+  let apiKey = "fef90cf423cdd1a82c0f177876085211";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+function inputCity(event) {
+  event.preventDefault();
+
+  let city = document.querySelector("#city-input").value;
+  searchCity(city);
+}
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
